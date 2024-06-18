@@ -1,0 +1,7 @@
+fastapi
+uvicorn
+qdrant_client
+opencv-python==4.8.0.76
+pydantic
+insightface
+onnxruntime
