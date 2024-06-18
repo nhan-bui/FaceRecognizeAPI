@@ -15,7 +15,7 @@ def read_root():
 
 @app.get("/get_info")
 def get_qdrant_info():
-    rq = requests.get("http://localhost:6333/")
+    rq = requests.get(f"http://{qdrant_host}:{qdrant_port}/")
     print(rq.json())
     return rq.json()
 

@@ -14,3 +14,4 @@ if not qdrant_client.collection_exists("SEARCH_FACE"):
         collection_name="SEARCH_FACE",
         vectors_config=VectorParams(size=512, distance=Distance.COSINE),
     )
+
