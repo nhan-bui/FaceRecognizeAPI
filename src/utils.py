@@ -6,17 +6,21 @@ import requests
 from insightface.app import FaceAnalysis
 
 embedding_model = FaceAnalysis(name="buffalo_sc", providers=['CUDAExecutionProvider', ])
-embedding_model.prepare(ctx_id=0)
+embedding_model.prepare(ctx_id=0, det_thresh=0.3)
 
 
 def get_embedding(image_base64, model=embedding_model):
-    decoded_image = base64.b64decode(image_base64)
-    np_arr = np.frombuffer(decoded_image, np.uint8)
-    img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
-    faces = model.get(img)
-    embedding = faces[0]['embedding'].tolist()
-
-    return embedding
+    try:
+        decoded_image = base64.b64decode(image_base64)
+        np_arr = np.frombuffer(decoded_image, np.uint8)
+        img = cv2.imdecode(np_arr, cv2.IMREAD_COLOR)
+        faces = model.get(img)
+        if len(faces) < 1:
+            return None
+        embedding = faces[0]['embedding'].tolist()
+        return embedding
+    except Exception as e:
+        return 3
 
 
 def getNumUser(host, port, collection_name):
@@ -39,4 +43,4 @@ if __name__ == '__main__':
     st = time.time()
     a = get_embedding(image_base64)
     ed = time.time()
-    print(ed -st)
+    print(ed - st)

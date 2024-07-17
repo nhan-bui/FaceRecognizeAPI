@@ -2,7 +2,10 @@ import os
 from fastapi import FastAPI
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams
+from fastapi.security.api_key import APIKeyHeader
 
+API_KEY = "Ptit@2024ReCognizeFace"
+api_key_header = APIKeyHeader(name="X-API-Key")
 app = FastAPI()
 
 qdrant_host = os.getenv("QDRANT_HOST", "localhost")
@@ -14,4 +17,3 @@ if not qdrant_client.collection_exists("SEARCH_FACE"):
         collection_name="SEARCH_FACE",
         vectors_config=VectorParams(size=512, distance=Distance.COSINE),
     )
-

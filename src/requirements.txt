@@ -3,5 +3,6 @@ uvicorn
 qdrant_client
 opencv-python==4.8.0.76
 pydantic
+onnxruntime==1.17.0
+onnxruntime-gpu==1.18.0
 insightface
-onnxruntime
